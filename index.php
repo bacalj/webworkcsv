@@ -11,28 +11,28 @@ include('webworkcsv.php');
 global $DB;
 
 $id = required_param('id', PARAM_INT);
-$bcsv = new webworkcsv($id);
+$wbwkcsv = new WebworkCsv($id);
 
-$bcsv->setup_page_and_access();
+$wbwkcsv->setup_page_and_access();
 
-$bcsv->extract_term_and_crn();
+//$wbwkcsv->extract_term_and_crn();
 
 //render
 echo $OUTPUT->header();
 //echo '<pre>';
-  //$bcsv->display_record_preview();
-$bcsv->build_student_records_stream_content();
+  //$wbwkcsv->display_record_preview();
+$wbwkcsv->build_student_records_stream_content();
 echo '<hr>';
 echo '<h2>Verify grade data</h2>';
 echo '<p>The table below is for data verification only. The actual csv feilds will be: <code>Term Code,CRN,Student ID,Course,Final Grade</code></p>';
 
-if ( $bcsv->errorText !== 'No errors detected.' ){
-  echo $bcsv->errorText;
+if ( $wbwkcsv->errorText !== 'No errors detected.' ){
+  echo $wbwkcsv->errorText;
 } else {
-  echo '<table style="width:50%;">';
-  $bcsv->display_record_preview();
-  echo '</table>';
-  $bcsv->render_csv_download_link();
+  // echo '<table style="width:50%;">';
+  // $wbwkcsv->display_record_preview();
+  // echo '</table>';
+  $wbwkcsv->render_csv_download_link();
 }
 
 
