@@ -23,8 +23,8 @@ echo $OUTPUT->header();
   //$wbwkcsv->display_record_preview();
 $wbwkcsv->build_student_records_stream_content();
 echo '<hr>';
-echo '<h2>Verify grade data</h2>';
-echo '<p>The table below is for data verification only. The actual csv feilds will be: <code>Term Code,CRN,Student ID,Course,Final Grade</code></p>';
+// echo '<h2>Verify grade data</h2>';
+// echo '<p>The table below is for data verification only. The actual csv feilds will be: <code>Term Code,CRN,Student ID,Course,Final Grade</code></p>';
 
 if ( $wbwkcsv->errorText !== 'No errors detected.' ){
   echo $wbwkcsv->errorText;
