@@ -10,16 +10,13 @@ class WebworkCsv {
 		$this->shortname = $this->courseobj->shortname;
 		$this->errorText = 'No errors detected.';
 		$this->studentlist = get_role_users(5, $this->coursecontext);
+		//extract section number from shortname
+		if ( true ){
+			$this->course_section_num = '02';
+		} else {
+			$this->course_section_num = $this->shortname;
+		}
 	}
-
-	// function extract_section_from_shortname(){
-	// 	if ( /*shortname matches pattern*/ ){
-	// 		//extract it
-	// 		$this->course_section_num = /* what we extracted */
-	// 	} else {
-	// 		$this->course_section_num = $this->shortname;
-	// 	}
-	// }
 
 	function setup_page_and_access(){
 		global $PAGE;
@@ -62,7 +59,8 @@ class WebworkCsv {
 			array_push($student_record, $person->firstname);
 			array_push($student_record, NULL);
 			array_push($student_record, NULL);
-			array_push($student_record, $this->courseobj->shortname);
+			//array_push($student_record, $this->courseobj->shortname);
+			array_push($student_record, $this->course_section_num);
 			array_push($student_record, NULL);
 			array_push($student_record, $person->email);
 			array_push($student_record, $person->username);
@@ -75,9 +73,6 @@ class WebworkCsv {
 			//put the record in the records list
 			array_push($this->students_list, $record_string . '%0A');
 		}
-		// echo '<pre>';
-		// 	print_r($this->students_list);
-		// echo '</pre>';
 	}
 
 	function render_csv_download_link(){
