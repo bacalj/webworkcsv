@@ -9,6 +9,7 @@ class WebworkCsv {
 		$this->userlist = get_enrolled_users($this->coursecontext, '');
 		$this->shortname = $this->courseobj->shortname;
 		$this->errorText = 'No errors detected.';
+		$this->studentlist = get_role_users(5, $this->coursecontext);
 	}
 
 	function setup_page_and_access(){
@@ -37,13 +38,14 @@ class WebworkCsv {
 			'permission'
 		);
 
-		echo '<pre>';
+
 		$concatForCsv = implode('%2C', $srcstrings ) . '%0A';
 		$this->students_list = array($concatForCsv);
-		//var_dump($this->students_list);
 
-
-		foreach ( $this->userlist as $person ) {
+		foreach ( $this->studentlist as $person ) {
+			echo '<pre style="border:1px solid orange;">';
+				print_r($person);
+			echo '</pre>';
 			//each row in csv is going to be a record array
 			$student_record = array();
 
@@ -57,8 +59,13 @@ class WebworkCsv {
 
 			//put the record in the records list
 			array_push($this->students_list, $record_string . '%0A');
+			echo '<pre style="font-size:11px;">';
+				print_r($student_record);
 			echo '</pre>';
 		}
+		echo '<pre>';
+			print_r($this->students_list);
+		echo '</pre>';
 	}
 
 	function render_csv_download_link(){
