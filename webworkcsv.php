@@ -40,31 +40,24 @@ class WebworkCsv {
 		echo '<pre>';
 		$concatForCsv = implode('%2C', $srcstrings ) . '%0A';
 		$this->students_list = array($concatForCsv);
-		var_dump($this->students_list);
-		echo '</pre>';
+		//var_dump($this->students_list);
+
 
 		foreach ( $this->userlist as $person ) {
 			//each row in csv is going to be a record array
 			$student_record = array();
 
-			//get the students final grade
-			$studentkey = $person->id;
-
-			//build up the record
-			//array_push($student_record, $this->crn);
-
-
 			array_push($student_record, $person->idnumber);
 
-
 			array_push($student_record, $this->courseobj->shortname);
-			array_push($student_record, $final_grade_ltr);
+			//array_push($student_record, $final_grade_ltr);
 
 			//compact each record into a comma-separated string
 			$record_string = implode('%2C', $student_record);
 
 			//put the record in the records list
 			array_push($this->students_list, $record_string . '%0A');
+			echo '</pre>';
 		}
 	}
 
