@@ -12,6 +12,15 @@ class WebworkCsv {
 		$this->studentlist = get_role_users(5, $this->coursecontext);
 	}
 
+	// function extract_section_from_shortname(){
+	// 	if ( /*shortname matches pattern*/ ){
+	// 		//extract it
+	// 		$this->course_section_num = /* what we extracted */
+	// 	} else {
+	// 		$this->course_section_num = $this->shortname;
+	// 	}
+	// }
+
 	function setup_page_and_access(){
 		global $PAGE;
 		require_login($this->courseobj);
@@ -43,29 +52,32 @@ class WebworkCsv {
 		$this->students_list = array($concatForCsv);
 
 		foreach ( $this->studentlist as $person ) {
-			echo '<pre style="border:1px solid orange;">';
-				print_r($person);
-			echo '</pre>';
+
 			//each row in csv is going to be a record array
 			$student_record = array();
 
+			//load the values into the array
 			array_push($student_record, $person->idnumber);
-
+			array_push($student_record, $person->lastname);
+			array_push($student_record, $person->firstname);
+			array_push($student_record, NULL);
+			array_push($student_record, NULL);
 			array_push($student_record, $this->courseobj->shortname);
-			//array_push($student_record, $final_grade_ltr);
+			array_push($student_record, NULL);
+			array_push($student_record, $person->email);
+			array_push($student_record, $person->username);
+			array_push($student_record, NULL);
+			array_push($student_record, NULL);
 
 			//compact each record into a comma-separated string
 			$record_string = implode('%2C', $student_record);
 
 			//put the record in the records list
 			array_push($this->students_list, $record_string . '%0A');
-			echo '<pre style="font-size:11px;">';
-				print_r($student_record);
-			echo '</pre>';
 		}
-		echo '<pre>';
-			print_r($this->students_list);
-		echo '</pre>';
+		// echo '<pre>';
+		// 	print_r($this->students_list);
+		// echo '</pre>';
 	}
 
 	function render_csv_download_link(){
