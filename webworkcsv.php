@@ -11,11 +11,7 @@ class WebworkCsv {
 		$this->errorText = 'No errors detected.';
 		$this->studentlist = get_role_users(5, $this->coursecontext);
 		//extract section number from shortname
-		if ( true ){
-			$this->course_section_num = '02';
-		} else {
-			$this->course_section_num = $this->shortname;
-		}
+		$this->course_section_num = substr($this->shortname, -2, strpos($this->shortname, '_'));
 	}
 
 	function setup_page_and_access(){
