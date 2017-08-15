@@ -1,5 +1,6 @@
 # webworkcsv
 
-- Allows a Moodle instructor to download a CSV with final grades in a format WebWork can take as an upload.  
-- Current version works when Moodle Course ID Number is set to `{{crn}}.{{termcode}}` or `{{crn}}-{{termcode}}`
-- If you store student ids in a custom field and need that value to be the one passed to CSV you can name this field in the config
+- Allows a Moodle instructor to download a `.lst` with info in format necessary for import to WebWork.  
+- Current version works when course shortname follows Smith convention which is
+ 	-	`SQS111- 01_201801`
+	- `<DEPT><COURSENUMBER>- <SECTION>_<TERMCODE>`
