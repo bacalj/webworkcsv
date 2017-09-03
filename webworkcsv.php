@@ -86,9 +86,6 @@ class WebworkCsv {
 			//put the record in the records list
 			array_push($this->students_list, $record_string . '%0A');
 		}
-		// echo '<pre>';
-		// 	print_r($this->course_section_num);
-		// echo '</pre>';
 	}
 
 	function render_csv_download_link(){
