@@ -11,7 +11,10 @@ class WebworkCsv {
 		$this->errorText = 'No errors detected.';
 		$this->studentlist = get_role_users(5, $this->coursecontext);
 		//extract section number from shortname
-		$this->course_section_num = substr($this->shortname, -2, strpos($this->shortname, '_'));
+		$this->course_section_num = substr($this->shortname, 8, 2);
+		// echo '<pre>';
+		// 	print_r($this->shortname);
+		// echo '</pre>';
 	}
 
 	function setup_page_and_access(){
@@ -49,6 +52,20 @@ class WebworkCsv {
 			//each row in csv is going to be a record array
 			$student_record = array();
 
+			//if the username is an email address we will just want the name part
+			if (strpos($person->username, '@') !== FALSE ){
+				$username_arr = explode('@', $person->username);
+				$username_substring = $username_arr[0];
+			}
+
+			//if not then we'll keep the usual username
+			else {
+				$username_substring = $person->username;
+			}
+
+			//print_r($username_substring);
+
+
 			//load the values into the array
 			array_push($student_record, $person->idnumber);
 			array_push($student_record, $person->lastname);
@@ -59,7 +76,7 @@ class WebworkCsv {
 			array_push($student_record, $this->course_section_num);
 			array_push($student_record, NULL);
 			array_push($student_record, $person->email);
-			array_push($student_record, $person->username);
+			array_push($student_record, $username_substring);
 			array_push($student_record, NULL);
 			array_push($student_record, NULL);
 
@@ -69,6 +86,9 @@ class WebworkCsv {
 			//put the record in the records list
 			array_push($this->students_list, $record_string . '%0A');
 		}
+		// echo '<pre>';
+		// 	print_r($this->course_section_num);
+		// echo '</pre>';
 	}
 
 	function render_csv_download_link(){
